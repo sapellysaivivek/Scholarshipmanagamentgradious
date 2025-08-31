@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+  <form class="donation-form">
+    <h2>Applycationdetails</h2>
+
+    <div class="form-group">
+      <div class="form-row">
+        <label>Scholarship Name <span class="required">*</span></label>
+        <input type="text" class="req" name="scholarship_name" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-row">
+        <label>Registration ID</label>
+        <textarea rows="1" name="regid"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-row">
+        <label>Roll Number</label>
+        <textarea rows="1" name="rlno"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-row">
+        <label>registrationemail</label>
+        <input name="regemail"></input>
+      </div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+  document.querySelector(".donation-form").addEventListener("submit", async (e) => {
+    e.preventDefault(); // Stop form from reloading the page
+
+    const scholarship_name = document.querySelector('[name="scholarship_name"]').value;
+    const regid = document.querySelector('[name="regid"]').value;
+    const rlno = document.querySelector('[name="rlno"]').value;
+    const regemail = document.querySelector('[name="regemail"]').value
+    
+
+    try {
+      const response = await fetch("/applyrout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ scholarship_name, regid, rlno, regemail })
+      });
+
+      if (!response.ok) {
+        throw new Error("Server error: " + response.status);
+      }
+
+      const result = await response.json();
+      console.log("Server Response:", result);
+
+      alert("Submitted successfully ✅");
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("❌ Failed to submit. Try again.");
+    }
+  });
+</script>
+
+</body>
+</html>

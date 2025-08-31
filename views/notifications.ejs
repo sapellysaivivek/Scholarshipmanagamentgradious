@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notofication Form</title>
+    <link rel="stylesheet" href="forms.css">
+</head>
+<body>
+    <form class="donation-form" action="/notifications" method="POST" onsubmit="return validate()">
+        <h2>Scholarship notifications</h2>
+
+        <div class="form-group">
+        <div class="form-row">
+            <label>Scolarship Name<span class="required">*</span></label>
+            <input type="text"  class="req" name="scholarship_name" >
+        </div>
+        
+    </div>
+    <div class="form-group">
+         <div class="form-row">
+                <label>About Scholarship</label>
+                <textarea rows="4" name="about_Scholarship"></textarea>
+        </div>
+    </div>
+        <button type="submit" onclick="validate()">submit</button>
+        
+    </form>
+</body>
+<script>
+    function validate(){
+    let r=document.querySelectorAll(".req");
+    let flag=0;
+    r.forEach(el=>{
+        if(el.value.trim()=="")
+        flag=1;
+        el.style.border="1px solid red";
+    })
+    if(flag==1){
+        alert("fill all the fields");
+    }
+}
+
+</script>
+</html>

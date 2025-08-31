@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashbord.css">
+    <link rel="stylesheet" href="forms.css">
+</head>
+
+<body>
+    <div class="maincont" style="z-index:1004">
+        <div class="container">
+            
+            
+            <div class="newscholarship">
+    <h2>Available Scholarships</h2>
+    <% if (scholarship.length === 0) { %>
+        <p>No scholarships available yet.</p>
+        <% } else { %>
+            <% scholarship.forEach(form => { %>
+                <div class="selectscholarships">
+                    
+                    <strong><h1><%= form.scholarship_name %></h1></strong>
+                    <a href="/dashboard?id=<%= form._id %>">
+                        <button class="checkoutbutton">View Details</button>
+                    </a>
+                    
+                </div>
+                <% }) %>
+                <% } %>
+            </div>
+            
+            
+            <div class="Notification">
+                
+            </div>
+            <% if (selectedScholarship) { %>
+                <div class="details-section">
+                    <h2>Scholarship Details</h2>
+                    <p><strong>Name:</strong> <%= selectedScholarship.scholarship_name %></p>
+                    <p><strong>About:</strong> <%= selectedScholarship.about_Scholarship %></p>
+                    <p><strong>Conditions:</strong> <%= selectedScholarship.scholarship_conditions %></p>
+                    <a href="<%= selectedScholarship.scholarship_url %>" target="_blank" rel="noopener noreferrer">
+                        <button type="button">Apply</button>
+                    </a>
+                    <a href="/applyform">
+                        <button ">applydetails</button>
+                    </a>
+                </div>
+                <% } %>
+                
+            </div>
+            
+    <script>
+  const notifications = <%- JSON.stringify(notification) %>;
+  const container = document.querySelector(".Notification");
+
+  if (notifications.length !== 0) {
+    notifications.forEach((element) => {
+      const div = document.createElement("div");
+      const div1 = document.createElement("div");
+      
+      div.textContent = element.scholarship_name;
+      div1.textContent = element.about_Scholarship.substring(0, 50);
+
+      div.appendChild(div1);
+      container.appendChild(div);
+
+      div.classList.add("notifs");
+      div1.classList.add("innernotifs");
+
+      div.addEventListener("mouseenter", () => {
+        div1.textContent = element.about_Scholarship;
+        div.style.maxHeight = "none";
+      });
+      div.addEventListener("mouseleave", () => {
+        div1.textContent = element.about_Scholarship.substring(0, 50);
+      });
+    });
+  }
+  
+    
+</script>
+
+    </div>
+</body>
+</html>

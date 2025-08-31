@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholarship Table</title>
+</head>
+<body>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Scholarship</th>
+        <th>Registration id</th>
+        <th>Roll Number</th>
+        <th>Email</th>
+        <th>Application</th>
+        <th>Document Submission</th>
+        <th>Funded</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const tBody = document.querySelector("tbody");
+
+    async function getData() {
+      try {
+        const result = await fetch("/applyrout");
+        const data = await result.json();
+
+        data.forEach(element => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${element.scholarship_name}</td>
+            <td>${element.regid}</td>
+            <td>${element.rlno}</td>
+            <td>${element.regemail}</td>
+            <td>
+              <select name="application_status">
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+              </select>
+            </td>
+            <td>
+              <select name="document_status">
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+              </select>
+            </td>
+            <td>
+              <select name="funded_status">
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+              </select>
+            </td>
+          `;
+          tBody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    getData();
+  </script>
+</body>
+</html>

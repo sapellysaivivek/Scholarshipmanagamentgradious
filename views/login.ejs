@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="formcontainer">
+            <div class="heading">
+            <h1>User login</h1>
+            </div>
+            <form action="" method="post" class="formdetails">
+                <div class="formgroup">
+                <label for="email">*Email</label>
+                <input type="emial" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <div class="formgroup">
+                <label for="password">*Password</label>
+                <input type="text" id="password" name="password" placeholder="Enter your password">
+
+                </div>
+                <div class="formgroupsubmit">
+                    <Button type="submit"  onclick="local()">Submit</Button>
+                </div>
+                <p>if you are new user <a href="/sigup">click here</a></p>
+            </form>
+        </div>
+    </div>
+    <Script>
+       function local(){
+        sessionStorage.setItem('useremail',document.querySelector("#email").value);
+        alert(sessionStorage.getItem('useremail'));
+       }
+    </Script>
+</body>
+</html>

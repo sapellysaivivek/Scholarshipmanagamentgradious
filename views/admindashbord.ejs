@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        table{
+            width: 50vmin;
+        }
+    </style>
+</head>
+<body>
+   
+
+<div class="container">
+    <h1>Dashboard</h1>
+    <div class="scolarshipdashbord">
+        <div class="boxheadings">
+            <button onclick="newscholarship()"><img src="download.jpg" alt="Image not found"></button>
+            <h2>Add NewScholarships</h2>
+        </div>
+
+        <div class="boxheadings">
+            <button id="displaynewadmins" onclick="toggleSection('adminSection')">
+                <img src="adminsimage.png" alt="Image not found">
+            </button>
+            <h2>New Admins</h2>
+        </div>
+
+        <div class="boxheadings">
+            <button id="displaynewstudents" onclick="toggleSection('studentSection')">
+                <img src="students.jpg" alt="Image not found">
+            </button>
+            <h2>New Students</h2>
+        </div>
+
+        <div class="boxheadings">
+          <a href="/notifications"><button><img src="student.jpg" alt="Image not found"></button></a>
+            <h2>Student Scholarships</h2>
+        </div>
+        <div class="boxheadings">
+          <a href="/appliedStudents"><button><img src="image.png" alt="Image not found"></button></a>
+            <h2>Apllied Students</h2>
+        </div>
+    </div>
+
+    <div id="mytable" class="mytable">
+
+        <!-- Student Approval Table -->
+        <div id="studentSection" style="display: none;">
+            <h2>Pending Students</h2>
+            <table border="1">
+                <tr>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                <% students.forEach(student => { %>
+                    <tr data-email="<%= student.email %>">
+                        <td><%= student.email %></td>
+                        <td><button class="approve-student">Approve</button></td>
+                        <td><button class="remove-student">Remove</button></td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+
+        <!-- Admin Approval Table -->
+        <div id="adminSection" style="display: none;">
+            <h2>Pending Admins</h2>
+            <table border="1" > 
+                <tr>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                <% admins.forEach(admin => { %>
+                    <tr data-email="<%= admin.email %>">
+                        <td><%= admin.email %></td>
+                        <td><button class="approve-admin">Approve</button></td>
+                        <td><button class="remove-admin">Remove</button></td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function toggleSection(id) {
+        document.getElementById('studentSection').style.display = 'none';
+        document.getElementById('adminSection').style.display = 'none';
+
+        const section = document.getElementById(id);
+        section.style.display = "block";
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Approve Students
+        document.querySelectorAll('.approve-student').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                const studentEmail = row.dataset.email;
+
+                fetch(`/approve-student/${encodeURIComponent(studentEmail)}`, {
+                    method: 'PUT'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                        alert('Student approved.');
+                    } else {
+                        alert('Failed to approve student.');
+                    }
+                });
+            });
+        });
+
+        // Remove Students
+        document.querySelectorAll('.remove-student').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                const studentEmail = row.dataset.email;
+
+                fetch(`/delete-student/${encodeURIComponent(studentEmail)}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                        alert('Student removed.');
+                    } else {
+                        alert('Failed to remove student.');
+                    }
+                });
+            });
+        });
+
+        // Approve Admins
+        document.querySelectorAll('.approve-admin').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                const adminEmail = row.dataset.email;
+
+                fetch(`/approve-admin/${encodeURIComponent(adminEmail)}`, {
+                    method: 'PUT'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                        alert('Admin approved.');
+                    } else {
+                        alert('Failed to approve admin.');
+                    }
+                });
+            });
+        });
+
+        // Remove Admins
+        document.querySelectorAll('.remove-admin').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const row = e.target.closest('tr');
+                const adminEmail = row.dataset.email;
+
+                fetch(`/delete-admin/${encodeURIComponent(adminEmail)}`, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        row.remove();
+                        alert('Admin removed.');
+                    } else {
+                        alert('Failed to remove admin.');
+                    }
+                });
+            });
+        });
+
+    });
+
+</script>
+ <script src="admindash.js"></script>
+</body>
+</html>
