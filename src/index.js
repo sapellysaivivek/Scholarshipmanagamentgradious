@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+require("dotenv").config();
 const { loginregisdata, admin, student , adminlogindata , formdatas} = require('./confid');
 const Notifications = require("./Notifications")
 const appstudents = require("./appliedStudents")
@@ -243,3 +244,4 @@ app.use("/appliedStudents", appstudents)
 app.use("/applyrout" , applyrout)
 // Start server
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
