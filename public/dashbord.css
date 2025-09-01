@@ -19,30 +19,50 @@ body{
   
     padding: 3%;
 }
-.newscolarship{
-    display:flex;
-    height: 30vh;
-    width: 94%;
-    background-color: #d71616;
-    gap: 7px;
-    
+.newscholarship {
+    display: flex;
+    flex-wrap: nowrap;        /* Prevent wrapping */
+    gap: 15px;                /* Space between cards */
+    overflow-x: auto;         /* Enable horizontal scroll */
+    white-space: nowrap;      /* Prevent text wrapping issues */
+    padding: 10px;
+    background-color: #f0f0f0;
+    scroll-behavior: smooth;  /* Smooth scrolling */
 }
- 
 
-.selectscholarships{
-    display: inline-block;
+/* Style scrollbar (optional, for Chrome/Edge) */
+.newscholarship::-webkit-scrollbar {
+    height: 2px;
+}
+.newscholarship::-webkit-scrollbar-thumb {
+    background: #8A2BE2;
+    border-radius: 4px;
+}
+.newscholarship::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+.selectscholarships {
+    flex: 0 0 250px;   /* Adjust width of each card */
     background-color: #ffffff;
     border: 1px solid #080808;
-    width: 20vw;
-    height: 20vh;
-    padding-left: 5px;
+    height: 150px;
+    padding: 10px;
     border-radius: 7px;
-    color: rgb(3, 3, 3);
-    margin-right: 5px;
-    
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;          /* Prevent overflow */
+    white-space: normal;       /* Allow text to wrap */
+    word-wrap: break-word;     /* Break long words */
 }
+
+
+
 .selectscholarships:hover{
     box-shadow: 2px 2px 2px rgba(75, 211, 2, 0.2), -2px -2px 2px rgba(53, 181, 2, 0.2);
+
 }
 .checkoutbutton{
     background: linear-gradient(135deg, #4B0082, #8A2BE2); /* Purple gradient */
