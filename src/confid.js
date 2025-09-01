@@ -1,5 +1,5 @@
 const mongoose =require("mongoose");
-const connect =mongoose.connect("mongodb://localhost:27017/logindata")
+const connect =mongoose.connect("mongodb+srv://SapellySaiVivek:SapellySaiVivek123@cluster1.g1fzy4h.mongodb.net/")
 connect.then(res=>{
     console.log("successfull + hi")
 }).catch(err =>{

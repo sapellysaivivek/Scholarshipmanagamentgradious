@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // connect to DB
-mongoose.connect("mongodb://localhost:27017/logindata")
+mongoose.connect("mongodb+srv://SapellySaiVivek:SapellySaiVivek123@cluster1.g1fzy4h.mongodb.net/")
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
